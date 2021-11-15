@@ -1,0 +1,6 @@
+{
+  "appTitle": "flutter_firebase_uber",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
