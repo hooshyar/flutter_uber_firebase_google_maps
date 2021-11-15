@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 final MaterialColor mainColor =
-    MaterialColor(Color(0xFF109D7B).value, const <int, Color>{
+    MaterialColor(const Color(0xFF109D7B).value, const <int, Color>{
   50: Color(0xFF109D7B),
   100: Color(0xFF109D7B),
   200: Color(0xFF109D7B),

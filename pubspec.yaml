@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   lottie: ^1.2.1
+  pin_code_fields: ^7.3.0
   flutter_localizations:
     sdk: flutter
 
