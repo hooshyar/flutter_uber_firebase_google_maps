@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -35,7 +36,11 @@ class MyApp extends StatelessWidget {
           ],
           onGenerateTitle: (BuildContext context) =>
               AppLocalizations.of(context)!.appTitle,
-          theme: ThemeData(),
+          theme: ThemeData(
+            primaryColorDark: mainColor,
+            primarySwatch: mainColor,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
           onGenerateRoute: (RouteSettings routeSettings) {

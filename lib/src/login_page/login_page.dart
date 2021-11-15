@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_firebase_uber/src/global_widgets/logo_widget.dart';
+import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
                     Lottie.asset(
                       'assets/animations/login_page_animation.json',
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      // height: MediaQuery.of(context).size.height * 0.5,
                     ),
                     Container(
                       alignment: Alignment.topCenter,
@@ -52,13 +53,26 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Expanded(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       padding: const EdgeInsets.all(16),
                       height: 90,
                       child: TextFormField(
                         decoration: InputDecoration(
-                          prefix: const Text('+964 '),
+                          labelText: 'Phone Number',
+                          prefix: Row(
+                            children: [
+                              const Text('+964 '),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15, bottom: 15),
+                                child: VerticalDivider(
+                                  color: Colors.grey[800],
+                                ),
+                              )
+                            ],
+                          ),
+                          hintText: '751 449 1008',
                           prefixStyle: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w300,
@@ -97,6 +111,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                    child: const Text('Privacy Policy'),
+                    onPressed: () {},
+                  ),
+                ],
               )
             ],
           ),
