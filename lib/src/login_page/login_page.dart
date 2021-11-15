@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_firebase_uber/src/global_widgets/logo_widget.dart';
+import 'package:flutter_firebase_uber/src/home_page/home_page.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -192,6 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                 if (value.length == 6) {
                   if (value == '888888') {
                     debugPrint('Pin is correct');
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomePage.routeName);
                   }
                 }
               }),

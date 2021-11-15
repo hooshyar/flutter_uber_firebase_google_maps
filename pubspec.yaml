@@ -12,16 +12,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  lottie: ^1.2.1
-  pin_code_fields: ^7.3.0
   flutter_localizations:
     sdk: flutter
+  font_awesome_flutter: ^9.2.0
+  lottie: ^1.2.1
+  flutter_svg: ^0.23.0+1
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
 
   flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
@@ -33,3 +35,4 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/
     - assets/animations/
+    - assets/images/
