@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 15),
             height: 40,
             width: 55,
             decoration: BoxDecoration(

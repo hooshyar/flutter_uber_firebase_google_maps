@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_firebase_uber/src/global_widgets/logo_widget.dart';
 import 'package:flutter_firebase_uber/src/home_page/home_page.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
@@ -200,7 +200,6 @@ class _LoginPageState extends State<LoginPage> {
                 }
               }),
         ),
-        Text(dotenv.env['FOO']!),
         SizedBox(
           child: MaterialButton(
               minWidth: 260,
