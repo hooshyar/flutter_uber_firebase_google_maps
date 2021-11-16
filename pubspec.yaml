@@ -2,7 +2,7 @@ name: flutter_firebase_uber
 description: A new Flutter project.
 
 # Prevent accidental publishing to pub.dev.
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -10,25 +10,31 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  fdottedline_nullsafety: ^2.0.0
   flutter:
     sdk: flutter
+  flutter_config: ^2.0.0
   flutter_localizations:
     sdk: flutter
-  font_awesome_flutter: ^9.2.0
-  lottie: ^1.2.1
   flutter_svg: ^0.23.0+1
-  pin_code_fields: ^7.3.0
-  flutter_config: ^2.0.0
+  font_awesome_flutter: ^9.2.0
   google_maps_flutter: ^2.1.0
+  lottie: ^1.2.1
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
-
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Avenir
+      fonts:
+        - asset: assets/fonts/AvenirLTStd-Medium.otf
+        - asset: assets/fonts/AvenirLTStd-Book.otf
+          style: italic
 
   # Enable generation of localized Strings from arb files.
   generate: true
@@ -39,3 +45,5 @@ flutter:
     - .env
     - assets/animations/
     - assets/images/
+    - assets/maps/
+    - assets/fonts/

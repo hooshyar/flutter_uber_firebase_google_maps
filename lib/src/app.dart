@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           onGenerateTitle: (BuildContext context) =>
               AppLocalizations.of(context)!.appTitle,
           theme: ThemeData(
+            fontFamily: 'Avenir',
             primaryColorDark: mainColor,
             primarySwatch: mainColor,
             visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
                     return HomePage();
                   case SampleItemListView.routeName:
                   default:
-                    return const LoginPage();
+                    return HomePage();
+                  // return const LoginPage();
                 }
               },
             );

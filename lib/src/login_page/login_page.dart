@@ -21,54 +21,59 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: const LogoWidget(),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: SizedBox(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              SizedBox(
-                child: Column(
-                  children: [
-                    Lottie.asset(
-                      'assets/animations/login_page_animation.json',
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: 200,
-                    ),
-                    Container(
-                      alignment: Alignment.topCenter,
-                      padding: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Nostrud nisi fugiat non Lorem reprehenderit. Culpa est nisi duis laborum tempor cupidatat occaecat dolore.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context)
+              .requestFocus(FocusNode()); // to hide keyboard on tap outside
+        },
+        child: SizedBox(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: ListView(
+              children: [
+                SizedBox(
+                  child: Column(
+                    children: [
+                      Lottie.asset(
+                        'assets/animations/login_page_animation.json',
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 200,
+                      ),
+                      Container(
+                        alignment: Alignment.topCenter,
+                        padding: const EdgeInsets.all(20),
+                        child: const Text(
+                          'Nostrud nisi fugiat non Lorem reprehenderit. Culpa est nisi duis laborum tempor cupidatat occaecat dolore.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              AnimatedCrossFade(
-                  alignment: Alignment.bottomCenter,
-                  firstChild: _phoneInput(),
-                  secondChild: _pinInput(),
-                  sizeCurve: Curves.easeInCirc,
-                  crossFadeState: _showPin == false
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
-                  duration: const Duration(milliseconds: 300)),
-              Expanded(
-                child: SafeArea(
+                SizedBox(
+                  height: 50,
+                ),
+                AnimatedCrossFade(
+                    alignment: Alignment.bottomCenter,
+                    firstChild: _phoneInput(),
+                    secondChild: _pinInput(),
+                    sizeCurve: Curves.easeInCirc,
+                    crossFadeState: _showPin == false
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: const Duration(milliseconds: 300)),
+                SafeArea(
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: Row(
@@ -90,9 +95,9 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -145,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
             onChanged: (value) {},
           ),
         ),
-        SizedBox(
+        Container(
           child: MaterialButton(
               minWidth: 260,
               height: 52,
@@ -200,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                 }
               }),
         ),
-        SizedBox(
+        Container(
           child: MaterialButton(
               minWidth: 260,
               height: 52,
