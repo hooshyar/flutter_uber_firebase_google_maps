@@ -1,5 +1,6 @@
 **/dgph
 *.mode1v3
+ios/Runner/AppDelegate.swift
 *.mode2v3
 *.moved-aside
 *.pbxuser
