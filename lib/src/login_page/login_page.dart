@@ -202,6 +202,9 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context)
                         .pushReplacementNamed(HomePage.routeName);
                   }
+                  //for now no matter what just go to the home page
+                  Navigator.of(context)
+                      .pushReplacementNamed(HomePage.routeName);
                 }
               }),
         ),
@@ -217,6 +220,7 @@ class _LoginPageState extends State<LoginPage> {
               child: const Text('Verify'),
               onPressed: () {
                 //todo check if pin is correct navigate to the HomeScreen else show error
+                Navigator.of(context).pushReplacementNamed(HomePage.routeName);
               }),
         ),
       ],

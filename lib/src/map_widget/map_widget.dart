@@ -43,12 +43,6 @@ class MapWidgetState extends State<MapWidget> {
           controller.setMapStyle(_mapStyle); // change the map style
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
     );
   }
 

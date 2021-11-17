@@ -58,8 +58,7 @@ class MyApp extends StatelessWidget {
                     return HomePage();
                   case SampleItemListView.routeName:
                   default:
-                    return HomePage();
-                  // return const LoginPage();
+                    return const LoginPage();
                 }
               },
             );

@@ -1,18 +1,31 @@
 import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_firebase_uber/src/constants/mock_image_urls.dart';
+import 'package:flutter_firebase_uber/src/global_widgets/buttons_widget.dart';
 import 'package:flutter_firebase_uber/src/map_widget/map_widget.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HomePage extends StatelessWidget {
-  TextEditingController _fromTextEditingController = TextEditingController();
-  TextEditingController _toTextEditingController = TextEditingController();
+enum Rides { shared, standard, deluxe, armoured }
 
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
   static const routeName = '/home';
-  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController _fromTextEditingController = TextEditingController();
+
+  TextEditingController _toTextEditingController = TextEditingController();
+
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+  String? selectedRide = 'shared';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,11 +96,11 @@ class HomePage extends StatelessWidget {
 
   _hoveringRideCard(context) {
     return Positioned(
-      bottom: 150,
+      bottom: 120,
       left: 30,
       right: 30,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.6,
         width: MediaQuery.of(context).size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -96,7 +109,7 @@ class HomePage extends StatelessWidget {
         child: Column(children: [
           // from to input
           Expanded(
-              flex: 4,
+              flex: 3,
               child: Container(
                   padding: const EdgeInsets.all(10),
                   color: Colors.white,
@@ -154,7 +167,7 @@ class HomePage extends StatelessWidget {
                                   child: Text(
                                     'From: ',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   )),
                               SizedBox(width: 10),
@@ -188,7 +201,7 @@ class HomePage extends StatelessWidget {
                                   child: Text(
                                     'To: ',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   )),
                               SizedBox(width: 10),
@@ -209,19 +222,239 @@ class HomePage extends StatelessWidget {
                   ))),
 
           //service selection
-          Expanded(
-              flex: 6,
-              child: Container(
-                color: Colors.red,
-              )),
+          Expanded(flex: 6, child: _chooseACar(context)),
 
           //order
           Expanded(
               flex: 2,
               child: Container(
-                color: Colors.amber,
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: Row(
+                  children: [
+                    GeneralButton(
+                      text: 'ORDER',
+                      onPressed: () => debugPrint('ordered'),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: GeneralButton(
+                        width: 120,
+                        text: 'CANCEL',
+                        color: Color(0xFFEB5757),
+                        onPressed: () => debugPrint('canceled'),
+                      ),
+                    )
+                  ],
+                ),
               ))
         ]),
+      ),
+    );
+  }
+
+  _chooseACar(context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 6.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedRide = 'Shared';
+                  });
+                  debugPrint(selectedRide);
+                },
+                child: _carCard(
+                  color: selectedRide!.toLowerCase() == 'shared'
+                      ? mainColor
+                      : null,
+                  title: 'Shared',
+                  subTitle: 'Shared ride with others',
+                  price: 5000,
+                  imageUrl: sharedCarImageUrl, // better to use an online source
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 6.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedRide = 'Standard';
+                  });
+                },
+                child: _carCard(
+                  color: selectedRide!.toLowerCase() == 'standard'
+                      ? mainColor
+                      : null,
+                  title: 'Standard',
+                  subTitle: 'Affordable rides',
+                  price: 25000,
+                  imageUrl:
+                      standardCarImageUrl, // better to use an online source
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 6.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedRide = 'Deluxe';
+                  });
+                },
+                child: _carCard(
+                  color: selectedRide!.toLowerCase() == 'deluxe'
+                      ? mainColor
+                      : null,
+                  title: 'Deluxe',
+                  subTitle: 'Luxury rides',
+                  price: 60000,
+                  imageUrl: deluxeCarImageUrl, // better to use an online source
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedRide = 'Armoured';
+                  });
+                },
+                child: _carCard(
+                  title: 'Armoured',
+                  color: selectedRide!.toLowerCase() == 'armoured'
+                      ? mainColor
+                      : null,
+                  subTitle: 'Armoured vehicles',
+                  price: 25000, //better change it to number
+                  imageUrl:
+                      armouredCarImageUrl, // better to use an online source
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _carCard(
+      {String? title,
+      String? subTitle,
+      num? price,
+      String? imageUrl,
+      Color? color}) {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: color ?? Colors.grey[100],
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: Image.network(
+                        imageUrl!,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //title
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              title!.toUpperCase(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  letterSpacing: 1.5,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900,
+                                  color:
+                                      color == mainColor ? Colors.white : null),
+                            ),
+                          ),
+                          //subtitle
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(top: 2),
+                            child: Text(
+                              subTitle!,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      color == mainColor ? Colors.white : null),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          //price
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "IQD $price",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: color == mainColor
+                                      ? Colors.white
+                                      : Colors.grey[600],
+                                ),
+                              ),
+                            ),
+                          ),
+                          //spacer
+                          Expanded(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

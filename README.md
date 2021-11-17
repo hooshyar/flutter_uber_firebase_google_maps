@@ -1,6 +1,6 @@
 # flutter_firebase_uber
 
-A new Flutter project.
+An easy to use taxi app, to order a trip or delivery
 
 ## Getting Started
 
