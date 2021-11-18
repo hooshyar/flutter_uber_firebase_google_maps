@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 
@@ -11,5 +12,6 @@ void main() async {
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();
   await FlutterConfig?.loadEnvVariables();
+  await Firebase.initializeApp();
   runApp(MyApp(settingsController: settingsController));
 }

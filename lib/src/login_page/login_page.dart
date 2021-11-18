@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_firebase_uber/src/global_widgets/logo_widget.dart';
 import 'package:flutter_firebase_uber/src/home_page/home_page.dart';
+import 'package:flutter_firebase_uber/src/services/auth_service.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -16,7 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _showPin = false; // show pin or not
-
+  AuthService _authService = AuthService();
+  TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 90,
           width: MediaQuery.of(context).size.width * 0.9,
           child: TextFormField(
+            controller: _phoneController,
             keyboardType: TextInputType.phone,
             decoration: InputDecoration(
               labelText: 'Phone Number',
@@ -160,11 +163,18 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: const Text('Login'),
-              onPressed: () {
-                //todo auth
-                setState(() {
-                  _showPin = true;
-                });
+              onPressed: () async {
+                if (_phoneController.text.isEmpty) {
+                  return;
+                } else {
+                  await _authService
+                      .signInWithPhoneNumber('+964' + _phoneController.text);
+
+                  //todo auth
+                  setState(() {
+                    _showPin = true;
+                  });
+                }
               }),
         ),
       ],

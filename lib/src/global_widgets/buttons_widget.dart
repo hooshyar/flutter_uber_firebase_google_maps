@@ -20,7 +20,7 @@ class GeneralButton extends StatelessWidget {
       child: MaterialButton(
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w800, color: Colors.white, fontSize: 16),
           ),
           shape: RoundedRectangleBorder(

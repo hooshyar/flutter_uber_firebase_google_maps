@@ -1,4 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_uber/src/global_widgets/error_widget.dart';
+import 'package:flutter_firebase_uber/src/global_widgets/loading_widget.dart';
 import 'package:flutter_firebase_uber/src/home_page/home_page.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,15 +15,33 @@ import 'settings/settings_view.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
-  const MyApp({
+  MyApp({
     Key? key,
     required this.settingsController,
   }) : super(key: key);
 
   final SettingsController settingsController;
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          // Check for errors
+          if (snapshot.hasError) {
+            return const GlobalErrorWidget();
+          }
+          // Once complete, show your application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return _initilizedApp();
+          }
+          // Otherwise, show something whilst waiting for initialization to complete
+          return const GlobalLoadingWidget();
+        });
+  }
+
+  _initilizedApp() {
     return AnimatedBuilder(
       animation: settingsController,
       builder: (BuildContext context, Widget? child) {
