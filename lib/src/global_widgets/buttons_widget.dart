@@ -10,13 +10,13 @@ class GeneralButton extends StatelessWidget {
       this.width})
       : super(key: key);
   final String text;
-  final onPressed;
+  final dynamic onPressed;
   final double? width;
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: MaterialButton(
           child: Text(
             text,

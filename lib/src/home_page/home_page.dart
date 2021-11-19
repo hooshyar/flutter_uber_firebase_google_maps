@@ -6,12 +6,11 @@ import 'package:flutter_firebase_uber/src/global_widgets/buttons_widget.dart';
 import 'package:flutter_firebase_uber/src/map_widget/map_widget.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum Rides { shared, standard, deluxe, armoured }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   static const routeName = '/home';
 
   @override
@@ -19,9 +18,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _fromTextEditingController = TextEditingController();
+  final TextEditingController _fromTextEditingController =
+      TextEditingController();
 
-  TextEditingController _toTextEditingController = TextEditingController();
+  final TextEditingController _toTextEditingController =
+      TextEditingController();
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   String? selectedRide = 'shared';
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         // to have a gradient behind the avatar and the burger menu
         children: [
-          MapWidget(),
+          const MapWidget(),
           Container(
               height: 110,
               width: double.infinity,
@@ -137,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 width: 8,
                               ),
-                              Expanded(
+                              const Expanded(
                                 child: Divider(
                                   color: Colors.grey,
                                 ),
@@ -157,27 +158,25 @@ class _HomePageState extends State<HomePage> {
                                   Icons.stars_rounded,
                                   color: mainColor,
                                 ),
-                                padding: EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 10),
                               ),
 
                               //real time search or select from map
                               Container(
                                   alignment: Alignment.centerLeft,
                                   height: double.infinity,
-                                  child: Text(
+                                  child: const Text(
                                     'From: ',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   )),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Expanded(
-                                  child: Container(
-                                child: TextField(
-                                  controller: _fromTextEditingController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
+                                  child: TextField(
+                                controller: _fromTextEditingController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
                                 ),
                               )),
                             ],
@@ -191,25 +190,25 @@ class _HomePageState extends State<HomePage> {
                                   Icons.stars_rounded,
                                   color: Colors.grey[800],
                                 ),
-                                padding: EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 10),
                               ),
 
                               //real time search or select from map
                               Container(
                                   alignment: Alignment.centerLeft,
                                   height: double.infinity,
-                                  child: Text(
+                                  child: const Text(
                                     'To: ',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   )),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Expanded(
-                                  child: Container(
+                                  child: SizedBox(
                                 child: TextField(
-                                  controller: _fromTextEditingController,
-                                  decoration: InputDecoration(
+                                  controller: _toTextEditingController,
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                   ),
                                 ),
@@ -228,21 +227,21 @@ class _HomePageState extends State<HomePage> {
           Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Row(
                   children: [
                     GeneralButton(
                       text: 'ORDER',
                       onPressed: () => debugPrint('ordered'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Expanded(
                       child: GeneralButton(
                         width: 120,
                         text: 'CANCEL',
-                        color: Color(0xFFEB5757),
+                        color: const Color(0xFFEB5757),
                         onPressed: () => debugPrint('canceled'),
                       ),
                     )
@@ -325,23 +324,20 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: Container(
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedRide = 'Armoured';
-                  });
-                },
-                child: _carCard(
-                  title: 'Armoured',
-                  color: selectedRide!.toLowerCase() == 'armoured'
-                      ? mainColor
-                      : null,
-                  subTitle: 'Armoured vehicles',
-                  price: 25000, //better change it to number
-                  imageUrl:
-                      armouredCarImageUrl, // better to use an online source
-                ),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedRide = 'Armoured';
+                });
+              },
+              child: _carCard(
+                title: 'Armoured',
+                color: selectedRide!.toLowerCase() == 'armoured'
+                    ? mainColor
+                    : null,
+                subTitle: 'Armoured vehicles',
+                price: 25000, //better change it to number
+                imageUrl: armouredCarImageUrl, // better to use an online source
               ),
             ),
           ),
@@ -358,7 +354,7 @@ class _HomePageState extends State<HomePage> {
       Color? color}) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: color ?? Colors.grey[100],
         borderRadius: BorderRadius.circular(6),
@@ -369,89 +365,83 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             flex: 1,
-            child: Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: Image.network(
-                        imageUrl!,
-                        fit: BoxFit.cover,
-                      ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Image.network(
+                    imageUrl!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        //title
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            title!.toUpperCase(),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                letterSpacing: 1.0,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w900,
+                                color:
+                                    color == mainColor ? Colors.white : null),
+                          ),
+                        ),
+                        //subtitle
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Text(
+                            subTitle!,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    color == mainColor ? Colors.white : null),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          //title
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              title!.toUpperCase(),
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  letterSpacing: 1.0,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                  color:
-                                      color == mainColor ? Colors.white : null),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      //price
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "IQD $price",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: color == mainColor
+                                  ? Colors.white
+                                  : Colors.grey[600],
                             ),
                           ),
-                          //subtitle
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(top: 2),
-                            child: Text(
-                              subTitle!,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      color == mainColor ? Colors.white : null),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          //price
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "IQD $price",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: color == mainColor
-                                      ? Colors.white
-                                      : Colors.grey[600],
-                                ),
-                              ),
-                            ),
-                          ),
-                          //spacer
-                          Expanded(
-                            flex: 1,
-                            child: Container(),
-                          ),
-                        ],
+                      //spacer
+                      Expanded(
+                        flex: 1,
+                        child: Container(),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   case HomePage.routeName:
-                    return HomePage();
+                    return const HomePage();
                   case SampleItemListView.routeName:
                   default:
                     return const LoginPage();

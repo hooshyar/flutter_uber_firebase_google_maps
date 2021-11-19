@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_firebase_uber/src/global_widgets/logo_widget.dart';
 import 'package:flutter_firebase_uber/src/home_page/home_page.dart';
-import 'package:flutter_firebase_uber/src/services/auth_service.dart';
 import 'package:flutter_firebase_uber/src/style.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -21,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   String? _verificationID, smsCode;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _pinController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _pinController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 AnimatedCrossFade(
@@ -157,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
             onChanged: (value) {},
           ),
         ),
-        Container(
+        SizedBox(
           child: MaterialButton(
               minWidth: 260,
               height: 52,
@@ -214,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
               inactiveColor: Colors.grey[300],
               activeColor: Colors.black,
               errorBorderColor: Colors.red,
-              borderRadius: BorderRadius.all(Radius.circular(6)),
+              borderRadius: const BorderRadius.all(Radius.circular(6)),
               borderWidth: 0.7,
             ),
             onChanged: (String value) {},
@@ -233,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
             // }
           ),
         ),
-        Container(
+        SizedBox(
           child: MaterialButton(
               minWidth: 260,
               height: 52,

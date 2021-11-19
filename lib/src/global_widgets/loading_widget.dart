@@ -5,12 +5,10 @@ class GlobalLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        body: Container(
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
+        body: Center(
+          child: CircularProgressIndicator(),
         ),
       ),
     );
