@@ -395,8 +395,8 @@ class _HomePageState extends State<HomePage> {
                               title!.toUpperCase(),
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                  letterSpacing: 1.5,
-                                  fontSize: 16,
+                                  letterSpacing: 1.0,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w900,
                                   color:
                                       color == mainColor ? Colors.white : null),
@@ -410,7 +410,7 @@ class _HomePageState extends State<HomePage> {
                               subTitle!,
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color:
                                       color == mainColor ? Colors.white : null),

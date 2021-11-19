@@ -21,7 +21,7 @@ class GeneralButton extends StatelessWidget {
           child: Text(
             text,
             style: const TextStyle(
-                fontWeight: FontWeight.w800, color: Colors.white, fontSize: 16),
+                fontWeight: FontWeight.w800, color: Colors.white, fontSize: 14),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),

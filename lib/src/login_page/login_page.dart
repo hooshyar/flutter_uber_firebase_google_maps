@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -17,8 +18,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _showPin = false; // show pin or not
-  AuthService _authService = AuthService();
+  String? _verificationID, smsCode;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController _phoneController = TextEditingController();
+  TextEditingController _pinController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,17 +168,25 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: const Text('Login'),
               onPressed: () async {
-                if (_phoneController.text.isEmpty) {
-                  return;
-                } else {
-                  await _authService
-                      .signInWithPhoneNumber('+964' + _phoneController.text);
+                await _auth.verifyPhoneNumber(
+                  phoneNumber:
+                      '+9647514491008', //this is a test number, should get from the input
+                  codeSent: (String verificationId, int? forceResendingToken) {
+                    //sshow pin input
+                    setState(() {
+                      _showPin = true;
+                      _verificationID = verificationId;
+                    });
+                    //please input the pin
+                  },
+                  verificationCompleted: (AuthCredential credential) {
+                    //sign in with credentials
+                  },
+                  verificationFailed: (FirebaseAuthException exception) {},
+                  codeAutoRetrievalTimeout: (String verificationId) {},
+                );
 
-                  //todo auth
-                  setState(() {
-                    _showPin = true;
-                  });
-                }
+                // }
               }),
         ),
       ],
@@ -191,32 +203,35 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(16),
           height: 90,
           child: PinCodeTextField(
-              appContext: context,
-              length: 6,
-              autoFocus: true,
-              pinTheme: PinTheme(
-                shape: PinCodeFieldShape.box,
-                fieldWidth: 40,
-                fieldHeight: 50,
-                inactiveColor: Colors.grey[300],
-                activeColor: Colors.black,
-                errorBorderColor: Colors.red,
-                borderRadius: BorderRadius.all(Radius.circular(6)),
-                borderWidth: 0.7,
-              ),
-              onChanged: (value) {
-                debugPrint('New value: $value');
-                if (value.length == 6) {
-                  if (value == '888888') {
-                    debugPrint('Pin is correct');
-                    Navigator.of(context)
-                        .pushReplacementNamed(HomePage.routeName);
-                  }
-                  //for now no matter what just go to the home page
-                  Navigator.of(context)
-                      .pushReplacementNamed(HomePage.routeName);
-                }
-              }),
+            controller: _pinController,
+            appContext: context,
+            length: 6,
+            autoFocus: true,
+            pinTheme: PinTheme(
+              shape: PinCodeFieldShape.box,
+              fieldWidth: 40,
+              fieldHeight: 50,
+              inactiveColor: Colors.grey[300],
+              activeColor: Colors.black,
+              errorBorderColor: Colors.red,
+              borderRadius: BorderRadius.all(Radius.circular(6)),
+              borderWidth: 0.7,
+            ),
+            onChanged: (String value) {},
+            // onChanged: (value) {
+            //   debugPrint('New value: $value');
+            //   if (value.length == 6) {
+            //     if (value == '888888') {
+            //       debugPrint('Pin is correct');
+            //       Navigator.of(context)
+            //           .pushReplacementNamed(HomePage.routeName);
+            //     }
+            //     //for now no matter what just go to the home page
+            //     Navigator.of(context)
+            //         .pushReplacementNamed(HomePage.routeName);
+            //   }
+            // }
+          ),
         ),
         Container(
           child: MaterialButton(
@@ -228,9 +243,20 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: const Text('Verify'),
-              onPressed: () {
+              onPressed: () async {
                 //todo check if pin is correct navigate to the HomeScreen else show error
-                Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+                PhoneAuthCredential _phoneAuthCredential =
+                    PhoneAuthProvider.credential(
+                        verificationId: _verificationID!,
+                        smsCode: _pinController.text);
+                UserCredential _user =
+                    await _auth.signInWithCredential(_phoneAuthCredential);
+                debugPrint(_user.user!.phoneNumber.toString());
+                if (_user.user != null) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(HomePage.routeName);
+                }
+                // Navigator.of(context).pushReplacementNamed(HomePage.routeName);
               }),
         ),
       ],
